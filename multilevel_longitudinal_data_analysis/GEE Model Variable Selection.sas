@@ -1,7 +1,7 @@
-/* Homework3 GEE Model */
+/* GEE Model Variable Selection */
 
 data raw;
-set "/folders/myfolders/Multilevel and Longitudinal Data Analysis/DataForHW2.sas7bdat"; 
+set "/folders/myfolders/Multilevel and Longitudinal Data Analysis/ECLSK.sas7bdat"; 
 run;
 
 * check categories;  
