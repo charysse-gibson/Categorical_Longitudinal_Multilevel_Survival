@@ -1,7 +1,7 @@
-/* Final Project */
+/* Longitudinal Analysis of Physician Visits in Canada */
 
 data final;  
-	set "/folders/myfolders/Multilevel and Longitudinal Data Analysis/FinalProjectData_bst5220.sas7bdat";   
+	set "/folders/myfolders/Multilevel and Longitudinal Data Analysis/FinalProjectData.sas7bdat";   
 run; 
  
 *histogram;
