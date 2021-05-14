@@ -1,10 +1,10 @@
 /*Import data*/ 
-data hw2; 
-set "/folders/myfolders/Multilevel and Longitudinal Data Analysis/DataForHW2.sas7bdat"; 
+data ECLSK; 
+set "/folders/myfolders/Multilevel and Longitudinal Data Analysis/ECLSK.sas7bdat"; 
 run; 
 
 /* Check categorical variables */
-proc freq data=hw2;  
+proc freq data=ECLSK;  
 tables  ChildGender Meducation ChildRace FamilyStructure 
 		HouseIncome Phealth Region Urban schooltype;  
 run;  
