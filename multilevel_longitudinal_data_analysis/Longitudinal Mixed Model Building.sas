@@ -1,4 +1,4 @@
-/* Homework4 */
+/* Longitudinal Mixed Model Building */
 
 data one;
 	set "/folders/myfolders/Multilevel and Longitudinal Data Analysis/one.sas7bdat"; 
