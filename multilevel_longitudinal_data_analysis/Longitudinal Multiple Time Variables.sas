@@ -1,4 +1,4 @@
-/* Homework 5 */
+/* Longitudinal Multiple Time Variables.sas */
 
 data one; 
 	set "/folders/myfolders/Multilevel and Longitudinal Data Analysis/hw5p1_data.sas7bdat";  
