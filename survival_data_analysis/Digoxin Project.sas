@@ -91,14 +91,13 @@ run; *FUNCTCLS is correlated with time, not RACE
  
 *step 4: Graph Schoenfeld residuals against survival time;
 proc sgplot data=ranked1;
- loess x=Ldaysrank y=sch_FUNCTCLS_bi/ 	clm LINEATTRS=(COLOR=Black)
- 										CLMATTRS=(CLMFILLATTRS=(COLOR=Yellow));
+ loess x=Ldaysrank y=sch_FUNCTCLS_bi/ clm LINEATTRS=(COLOR=Black) CLMATTRS=(CLMFILLATTRS=(COLOR=Yellow));
  title 'Schoenfeld residuals for FUNCTCLS_BI';
 run; *FUNCTCLS is time-independent;
+
 proc sgplot data=ranked1;
- loess x=Ldaysrank y=sch_RACE/ 	clm LINEATTRS=(COLOR=Black)
- 									CLMATTRS=(CLMFILLATTRS=(COLOR=Yellow));
-	title 'Schoenfeld residuals for RACE';
+ loess x=Ldaysrank y=sch_RACE/ clm LINEATTRS=(COLOR=Black) CLMATTRS=(CLMFILLATTRS=(COLOR=Yellow));
+ title 'Schoenfeld residuals for RACE';
 run; *RACE is time-dependent;
  
 *reconfirm results by checking significance of interaction terms with time;
