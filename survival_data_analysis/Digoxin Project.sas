@@ -1,5 +1,6 @@
 libname survival '/folders/myfolders/Survival Data Analysis/Project';
- 
+
+*imports data and clean some variables;
 data dig;
 	set survival.dig;
 	label FUNCTCLS_BI='0=No limitation, 1=Limitation';
@@ -9,12 +10,12 @@ data dig;
 	  1=certain degrees limitation of physical activity;
 run;
  
-*conglomerate outcome of CVD hospitalization;
+*create frequency table of outcomes and covariates;
 proc surveyfreq data=dig;
 	tables CVD*trtmt*functcls_bi*race / nopct;
 run;
  
-*tests for significance of confounders and treatment;
+*quick models to test if treatment or any confounders are predictors of outcome;
 proc phreg data=dig;
 	model CVDDAYS*CVD(0)= TRTMT;
 run;
@@ -34,11 +35,12 @@ run;
 proc freq data=dig;
 	tables TRTMT CVD RACE FUNCTCLS_bi;
 run;
+
 proc means data=dig;
 	var CVDDAYS;
 run;
 
-*log-rank test;
+*log-rank test to check if there is a difference between treatment groups;
 proc sort data=dig;
 	by TRTMT;
 proc lifetest data=dig plots=s(test atrisk);
@@ -51,7 +53,7 @@ proc phreg data=dig;
 	model CVDDAYS*CVD(0)= FUNCTCLS_bi RACE TRTMT/rl ties=efron;
 run;
  
-*lls plot for treatment;
+*log-log survival plot for treatment to test proportional hazards assumption;
 ODS EXCLUDE ProductLimitEstimates;/** Surpress	life test table **/
 proc lifetest data=dig plots=lls;
 	time CVDDAYS*CVD(0);
@@ -60,6 +62,7 @@ proc lifetest data=dig plots=lls;
 run; 
 
 /* Schoenfeld residuals */
+*another method for testing proportional hazards assumption;
  
 *step 1 - get residuals;
 proc phreg data=dig;
@@ -67,6 +70,7 @@ proc phreg data=dig;
 	output out=sch ressch = sch_FUNCTCLS_bi sch_RACE;
 	title 'Schoenfeld residuals for FUNCTCLS_BI RACE';
 run;
+
 *step 2 - log transform time;
 data schoenfeld;
 	set sch;
@@ -74,6 +78,7 @@ data schoenfeld;
 	Ldays=log(CVDDAYS);
 	days2=CVDDAYS**2;
 run;
+
 *rank events based on log time;
 proc rank data=schoenfeld out=ranked1 ties=mean;
 	Var ldays;
